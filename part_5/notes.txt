@@ -1,0 +1,25 @@
+Decorators
+More generally speaking, every time we had to apply a transformation to a function,
+we had to call it with the modifier function, and then reassign it to the same name
+the function was originally defined with.
+For instance, if we have a function called original , and then we have a function
+that changes the behavior of original on top of it, called modifier , we have to write
+something like the following:
+
+def original(...):
+...
+original = modifier(original)
+
+@modifier
+def original(...):
+...
+
+• All the benefits of reusing code and the DRY principle. A valid case of a
+class decorator would be to enforce that multiple classes conform to a certain
+interface or criteria (by writing these checks only once in a decorator that is
+going to be applied to many classes).
+• We could create smaller or simpler classes that will be enhanced later on by
+decorators.
+• The transformation logic we need to apply to a certain class will be much
+easier to maintain if we use a decorator, as opposed to more complicated
+(and often rightfully discouraged) approaches such as meta-classes.

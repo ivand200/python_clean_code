@@ -1,0 +1,52 @@
+Before writing a comment, try to see if you can express the same
+meaning using only code (that is, by adding a new function,
+or using better variable names).
+The opinion stated in this book about comments agrees pretty much with the rest
+of the literature on software engineering: comments in code are a symptom of our
+inability to express our code correctly.
+To sum up: code comments are evil. Sometimes a necessary evil, but nonetheless
+something we should try to avoid as much as possible. Documentation on code,
+on the other hand, is something different. That refers to documenting the design
+or architecture within the code itself, to make it clear, and that's a positive force
+(and also the topic of the next section, in which we discuss docstrings).
+
+
+Notice the emphasis on the word documentation. This is important because it's
+meant to represent explanation, not justification. Docstrings are not comments;
+they are documentation.
+The idea is that when other engineers want to use the component
+you're writing, they'll most likely take a look at the docstring to understand how
+it's supposed to work, what the expected inputs and outputs are, and so on. For this
+reason, it is a good practice to add docstrings whenever possible.
+
+@dataclass
+class Point
+lat: float
+long: float
+def locate(latitude: float, longitude: float) -> Point:
+"""Find an object in the map by its coordinates"""
+
+Seconds = float
+def launch_task(delay: Seconds):
+    return ...
+
+
+def data_from_response(response: dict) -> dict:
+"""If the response is OK, return its payload.
+- response: A dict like::
+{
+"status": 200, # <int>
+"timestamp": "....", # ISO format string of the current
+date time
+"payload": { ... } # dict with the returned data
+}
+- Returns a dictionary like::
+{"data": { .. } }
+- Raises:
+- ValueError if the HTTP status is != 200
+"""
+if response["status"] != 200:
+raise ValueError
+return {"data": response["payload"]}
+
+

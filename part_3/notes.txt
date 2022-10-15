@@ -1,0 +1,59 @@
+Despite this similarity, separation of concerns goes further. We normally think of
+contracts between functions, methods, or classes, and while this also applies to
+responsibilities that have to be separated, the idea of the separation of concerns
+also applies to Python modules, packages, and basically any software component.
+
+On the one hand, cohesion means that objects should have a small and well-defined
+purpose, and they should do as little as possible. It follows a similar philosophy as
+Unix commands that do only one thing and do it well. The more cohesive our objects
+are, the more useful and reusable they become, making our design better.
+
+Rule of thumb: Well-defined software will achieve high cohesion
+and low coupling.
+
+The ideas of Don't Repeat Yourself (DRY) and Once and Only Once (OAOO) are
+closely related, so they were included together.
+Things in the code, knowledge, have to be defined only once and in a single place.
+When you have to make a change to the code, there should be only one rightful
+location to modify. Failure to do so is a sign of a poorly designed system.
+
+YAGNI
+YAGNI (short for You Ain't Gonna Need It) is an idea you might want to keep in
+mind very often when writing a solution if you do not want to over-engineer it.
+The best approach would be to write only what's needed now in a way that doesn't
+hinder further improvements.
+
+KIS
+KIS (stands for Keep It Simple) relates very much to the previous point. When you
+are designing a software component, avoid over-engineering it. Ask yourself if your
+solution is the minimal one that fits the problem.
+
+The first alternative is a more general principle of software design—reification
+(creating a new object for all of those arguments that we are passing, which is
+probably the abstraction we are missing). Compacting multiple arguments into a
+new object is not a solution specific to Python, but rather something that we can
+apply in any programming language.
+making use of variable positional and keyword arguments to create
+functions that have a dynamic signature.
+
+
+# track_request(request.headers, request.ip_addr, request.request_id)
+# All of the parameters depend upon request , so why not pass
+# the request object instead? This is a simple change, but it significantly improves the
+# code. The correct function call should be track_request(request)
+
+The function we are calling should not make any modifications to the object we are
+passing because that will mutate the object, creating an undesired side effect. Unless
+this is actually the desired effect (in which case, it must be made explicit), this kind
+of behavior is discouraged. Even when we actually want to change something on
+the object we are dealing with, a better alternative would be to copy it and return a
+(new) modified version of it.
+Try to only define functions with the most generic arguments
+(*args, **kwargs) when you want a perfect wrapper over another
+function (for example, a method that will call super(), or a
+decorator).
+
+It also helps to have a convention for the project. For example, instead of placing
+constants in all of the files, we can create a file specific to the constant values to be
+used in the project, and import it from there:
+from myproject.constants import CONNECTION_TIMEOUT
